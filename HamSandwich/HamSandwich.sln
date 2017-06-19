@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{44C34104-D690-4627-A099-545AC36E12EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Presentation", "Presentation\Presentation.vcxproj", "{384718B9-1736-4238-9FC9-D5D0BCF3A5A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Renderer", "Renderer\Renderer.vcxproj", "{D0D2D7FA-6BB3-461D-BF46-35AFAADBDC0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44C34104-D690-4627-A099-545AC36E12EC}.Debug|x64.ActiveCfg = Debug|x64
+		{44C34104-D690-4627-A099-545AC36E12EC}.Debug|x64.Build.0 = Debug|x64
+		{44C34104-D690-4627-A099-545AC36E12EC}.Release|x64.ActiveCfg = Release|x64
+		{44C34104-D690-4627-A099-545AC36E12EC}.Release|x64.Build.0 = Release|x64
+		{384718B9-1736-4238-9FC9-D5D0BCF3A5A3}.Debug|x64.ActiveCfg = Debug|x64
+		{384718B9-1736-4238-9FC9-D5D0BCF3A5A3}.Debug|x64.Build.0 = Debug|x64
+		{384718B9-1736-4238-9FC9-D5D0BCF3A5A3}.Release|x64.ActiveCfg = Release|x64
+		{384718B9-1736-4238-9FC9-D5D0BCF3A5A3}.Release|x64.Build.0 = Release|x64
+		{D0D2D7FA-6BB3-461D-BF46-35AFAADBDC0C}.Debug|x64.ActiveCfg = Debug|x64
+		{D0D2D7FA-6BB3-461D-BF46-35AFAADBDC0C}.Debug|x64.Build.0 = Debug|x64
+		{D0D2D7FA-6BB3-461D-BF46-35AFAADBDC0C}.Release|x64.ActiveCfg = Release|x64
+		{D0D2D7FA-6BB3-461D-BF46-35AFAADBDC0C}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
