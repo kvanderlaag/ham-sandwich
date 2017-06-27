@@ -4,6 +4,9 @@
 
 GameApp::GameApp()
 	: m_running(false)
+	, m_lastUpdate()
+	, m_systems()
+	, m_renderingSystem()
 {
 }
 
@@ -47,6 +50,16 @@ bool GameApp::Initialize(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd)
 	}
 
 	ShowWindow(hwnd, nShowCmd);
+
+	// Initialize timer
+	m_lastUpdate = std::chrono::high_resolution_clock::now();
+
+	// Initialize subsystems
+	m_renderingSystem = std::make_unique<RenderingSystem>();
+
+	// Register subsystems
+	m_systems.push_back(static_cast<IEngineSystem*>(m_renderingSystem.get()));
+
 	return true;
 }
 
@@ -61,10 +74,23 @@ void GameApp::Run()
 	while (m_running)
 	{
 		MSG msg = {};
-		while (GetMessage(&msg, NULL, 0, 0))
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+		}
+		else
+		{
+			// high_resolution_clock is probably already nanosecond resolution, but we want to make sure.
+			const auto elapsed_ns = 
+				std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() 
+					- m_lastUpdate);
+
+			for (auto& system : m_systems)
+			{
+				system->Update(elapsed_ns.count());
+			}
+
 		}
 	}
 }
