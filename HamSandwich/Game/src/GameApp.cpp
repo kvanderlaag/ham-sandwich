@@ -81,16 +81,16 @@ void GameApp::Run()
 		}
 		else
 		{
+			auto now = std::chrono::high_resolution_clock::now();
 			// high_resolution_clock is probably already nanosecond resolution, but we want to make sure.
-			const auto elapsed_ns = 
-				std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() 
-					- m_lastUpdate);
+			const auto elapsed_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(now - m_lastUpdate);
+			m_lastUpdate = now;
 
+			// Update subsystems
 			for (auto& system : m_systems)
 			{
 				system->Update(elapsed_ns.count());
 			}
-
 		}
 	}
 }
