@@ -1,20 +1,13 @@
 #include <Windows.h>
+#include <exception>
 
 #include "GameApp.h"
 
-GameApp::GameApp()
+GameApp::GameApp(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd)
 	: m_running(false)
-	, m_lastUpdate()
+	, m_lastUpdate(std::chrono::high_resolution_clock::now())
 	, m_systems()
-	, m_renderingSystem()
-{
-}
-
-GameApp::~GameApp()
-{
-}
-
-bool GameApp::Initialize(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd)
+	, m_renderingSystem(std::make_unique<RenderingSystem>())
 {
 	// Register the window class.
 	const LPCSTR CLASS_NAME = "Rendering Window";
@@ -35,7 +28,7 @@ bool GameApp::Initialize(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd)
 		"Rendering Window",			    // Window text
 		WS_OVERLAPPEDWINDOW,            // Window style
 
-		// Size and position
+										// Size and position
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 
 		NULL,       // Parent window    
@@ -46,26 +39,17 @@ bool GameApp::Initialize(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd)
 
 	if (hwnd == NULL)
 	{
-		return 0;
+		throw new std::exception("Failed to register window class.");
 	}
 
 	ShowWindow(hwnd, nShowCmd);
 
-	// Initialize timer
-	m_lastUpdate = std::chrono::high_resolution_clock::now();
-
-	// Initialize subsystems
-	m_renderingSystem = std::make_unique<RenderingSystem>();
-
 	// Register subsystems
 	m_systems.push_back(static_cast<IEngineSystem*>(m_renderingSystem.get()));
-
-	return true;
 }
 
-bool GameApp::Shutdown()
+GameApp::~GameApp()
 {
-	return true;
 }
 
 void GameApp::Run()

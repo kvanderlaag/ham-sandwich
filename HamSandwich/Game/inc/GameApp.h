@@ -15,14 +15,11 @@ class GameApp
 {
 public:
 	// constructor/destructor
-	GameApp();
+	GameApp(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd);
 	virtual ~GameApp();
 
 	// Interface
 public:
-	bool Initialize(WNDPROC wndProc, HINSTANCE hInst, int nShowCmd);
-	bool Shutdown();
-
 	void Run(); // contains the game and update loop
 
 	void UpdateWindow(HWND hwnd);

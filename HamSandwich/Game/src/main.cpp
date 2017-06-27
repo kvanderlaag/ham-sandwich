@@ -11,18 +11,16 @@ GameApp* g_appInstance;
 // Entry point
 int CALLBACK WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR cmdLine, int nShowCmd)
 {
-	GameApp appInstance;
-	g_appInstance = &appInstance;
-
-	if (!appInstance.Initialize(WndProc, hInst, nShowCmd))
+	try
 	{
-		MessageBoxA(NULL, "Failed to initialize app. Exiting.", "Error", MB_OK);
-		return 0;
+		GameApp appInstance(WndProc, hInst, nShowCmd);
+		g_appInstance = &appInstance;
+		g_appInstance->Run();
 	}
-
-	appInstance.Run();
-
-	appInstance.Shutdown();
+	catch (const std::exception& e)
+	{
+		MessageBoxA(NULL, e.what(), "Error", MB_OK);
+	}
 
 	return 0;
 }
